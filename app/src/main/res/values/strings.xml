@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Memododo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="one">One</string>
+    <string name="two">Two</string>
 </resources>
