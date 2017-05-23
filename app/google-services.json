@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "18728098284",
+    "firebase_url": "https://memododo-d46c0.firebaseio.com",
+    "project_id": "memododo-d46c0",
+    "storage_bucket": "memododo-d46c0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:18728098284:android:93c112fb8550b865",
+        "android_client_info": {
+          "package_name": "com.example.naneen.memododo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "18728098284-lebeocu2t4is46aiigelcsmkihbb7u4k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.naneen.memododo",
+            "certificate_hash": "714d4db1188a90eb3309db36b347e6f52248e80b"
+          }
+        },
+        {
+          "client_id": "18728098284-1s65pfgjgdj0p4blmjuka60r5de48pub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjl_5X61WhvIGm08pTmLuY2wkzwR6wfoo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "18728098284-1s65pfgjgdj0p4blmjuka60r5de48pub.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

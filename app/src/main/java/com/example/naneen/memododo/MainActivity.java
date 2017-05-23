@@ -12,10 +12,6 @@ import android.support.v7.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.naneen.memododo.R;
-import com.example.naneen.memododo.OneFragment;
-import com.example.naneen.memododo.TwoFragment;
-
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
@@ -41,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new OneFragment(), "ONE");
+        adapter.addFragment(new AddFragment(), "ONE");
         adapter.addFragment(new TwoFragment(), "TWO");
         viewPager.setAdapter(adapter);
     }
