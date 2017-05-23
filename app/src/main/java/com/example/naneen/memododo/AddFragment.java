@@ -69,7 +69,7 @@ public class AddFragment extends Fragment{
 
 //      initialise firebase
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mRootRef = new Firebase("https://memododo-d46c0.firebaseio.com/").child("User_Details").push();
+        mRootRef = new Firebase("https://memododo-d46c0.firebaseio.com/").child("Word_list").push();
         mStorage = FirebaseStorage.getInstance().getReferenceFromUrl("gs://memododo-d46c0.appspot.com");
 
         //initialise progress bar
@@ -100,13 +100,17 @@ public class AddFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 final String word = wordEdit.getText().toString().trim();
+                final String meaning = meaningEdit.getText().toString().trim();
                 if (word.isEmpty()) {
                     Toast.makeText(getActivity().getApplicationContext(), "Word is empty!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Toast.makeText(getActivity().getApplicationContext(), "Updated word: " + word, Toast.LENGTH_LONG).show();
+                mRootRef.child("Word").setValue(word);
+                mRootRef.child("Meaning").setValue(meaning);
+                Toast.makeText(getActivity().getApplicationContext(), "Added word: " + word, Toast.LENGTH_LONG).show();
                 InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                mRootRef = new Firebase("https://memododo-d46c0.firebaseio.com/").child("Word_list").push();
             }
         });
 
@@ -162,7 +166,7 @@ public class AddFragment extends Fragment{
                             .crossFade()
                             .diskCacheStrategy(DiskCacheStrategy.RESULT)
                             .into(imageView);
-                    Toast.makeText(getActivity().getApplicationContext(), "Updated...", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Loaded image", Toast.LENGTH_SHORT).show();
                     mProgressDialog.dismiss();
                 }
             });
