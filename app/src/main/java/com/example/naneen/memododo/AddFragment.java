@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -30,12 +31,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import static android.R.id.list;
 import static android.app.Activity.RESULT_OK;
 
 public class AddFragment extends Fragment{
     Button addBtn, selectImage;
     EditText wordEdit, meaningEdit;
     ImageView imageView;
+    View view;
     public static final int READ_EXTERNAL_STORAGE = 0;
     private static final int GALLERY_INTENT = 2;
     private ProgressDialog mProgressDialog;
@@ -43,8 +46,6 @@ public class AddFragment extends Fragment{
     private Uri mImageUri = null;
     private DatabaseReference mDatabaseRef;
     private StorageReference mStorage;
-
-//    String word, meaning;
 
     public AddFragment() {
         // Required empty public constructor
@@ -60,7 +61,7 @@ public class AddFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add, container, false);
+        view = inflater.inflate(R.layout.fragment_add, container, false);
         addBtn = (Button) view.findViewById(R.id.addBtn);
         wordEdit   = (EditText) view.findViewById(R.id.wordEdit);
         meaningEdit   = (EditText) view.findViewById(R.id.meaningEdit);
@@ -111,9 +112,18 @@ public class AddFragment extends Fragment{
                 InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                 inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 mRootRef = new Firebase("https://memododo-d46c0.firebaseio.com/").child("Word_list").push();
+
+                wordEdit.getText().clear();
+                meaningEdit.getText().clear();
+                imageView.setImageResource(android.R.drawable.ic_menu_gallery);
+
+//                TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabs);
+//                int tabCount= tabLayout.getTabCount();
+//                Log.d("Debug", "tabcount : "+tabCount);
+////                TabLayout.Tab tab = tabLayout.getTabAt(2);
+////                tab.select();
             }
         });
-
         return view;
     }
 
