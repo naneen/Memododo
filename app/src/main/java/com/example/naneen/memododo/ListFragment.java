@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class ListFragment extends Fragment{
+    View view;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference myRef;
@@ -39,7 +42,7 @@ public class ListFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        view = inflater.inflate(R.layout.fragment_list, container, false);
         firebaseDatabase = FirebaseDatabase.getInstance();
         myRef = FirebaseDatabase.getInstance().getReference("Word_list");
         recyclerView = (RecyclerView) view.findViewById(R.id.viewPostData);
@@ -52,6 +55,7 @@ public class ListFragment extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
+        final ImageButton removeBtn;
         mFirebaseAdapter = new FirebaseRecyclerAdapter<ViewSingleItem, ShowDataViewHolder>(ViewSingleItem.class,
                 R.layout.viewsingleitem, ShowDataViewHolder.class, myRef) {
             @Override
@@ -60,7 +64,8 @@ public class ListFragment extends Fragment{
                 viewHolder.Word(model.getWord());
 
                 // click at any row of the list & we will delete at row out of DB
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener(){
+//                viewHolder.itemView.setOnClickListener(new View.OnClickListener(){
+                viewHolder.removeBtn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick (final View v) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -94,12 +99,14 @@ public class ListFragment extends Fragment{
 
     public static class ShowDataViewHolder extends RecyclerView.ViewHolder {
         private final TextView word, meaning;
+        ImageButton removeBtn;
 //        private final ImageView image_URL;
 
         public ShowDataViewHolder(final View itemView) {
             super(itemView);
             word = (TextView) itemView.findViewById(R.id.fetch_word);
             meaning  = (TextView) itemView.findViewById(R.id.fetch_meaning);
+            removeBtn = (ImageButton) itemView.findViewById(R.id.removeBtn);
         }
 
         private void Word(String w) {
@@ -108,6 +115,10 @@ public class ListFragment extends Fragment{
 
         private void Meaning(String m) {
             meaning.setText(m);
+        }
+
+        private ImageButton RemoveBtn() {
+            return removeBtn;
         }
 
     }
