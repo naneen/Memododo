@@ -24,6 +24,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.client.Firebase;
+import com.github.florent37.camerafragment.CameraFragment;
+import com.github.florent37.camerafragment.configuration.Configuration;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -91,7 +93,7 @@ public class AddFragment extends Fragment{
                 }
                 else {
                     Log.d("Debug", "else --> call gal()");
-                    Toast.makeText(getActivity().getApplicationContext(), "else --> call gal()", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Opening gallery", Toast.LENGTH_SHORT).show();
                     callGallery();
                 }
             }
@@ -155,10 +157,8 @@ public class AddFragment extends Fragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("Debug", "requestCode: " + requestCode + " , resultCode: " + resultCode);
 
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
-            Log.d("Debug", "rrequestCode == GALLERY_INTENT && resultCode == RESULT_OK");
             mImageUri = data.getData();
             imageView.setImageURI(mImageUri);
             StorageReference filePath = mStorage.child("User_Images").child(mImageUri.getLastPathSegment());

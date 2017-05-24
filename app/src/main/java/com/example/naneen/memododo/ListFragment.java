@@ -1,15 +1,22 @@
 package com.example.naneen.memododo;
 
+import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,6 +28,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import static android.R.attr.minHeight;
 
 public class ListFragment extends Fragment{
     View view;
@@ -47,7 +56,7 @@ public class ListFragment extends Fragment{
         myRef = FirebaseDatabase.getInstance().getReference("Word_list");
         recyclerView = (RecyclerView) view.findViewById(R.id.viewPostData);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        Toast.makeText(getActivity(), "Please wait, it is loading...", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "Please wait, it is loading...", Toast.LENGTH_SHORT).show();
 
         return view;
     }
@@ -62,6 +71,24 @@ public class ListFragment extends Fragment{
             protected void populateViewHolder(final ShowDataViewHolder viewHolder, ViewSingleItem model, final int position) {
                 viewHolder.Meaning(model.getMeaning());
                 viewHolder.Word(model.getWord());
+
+//                WindowManager windowmanager = (WindowManager) getActivity().context.getSystemService(Context.WINDOW_SERVICE);
+//                DisplayMetrics dimension = new DisplayMetrics();
+//                windowmanager.getDefaultDisplay().getMetrics(dimension);
+//                final int height = dimension.heightPixels;
+
+//                viewHolder.itemView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//                    @Override
+//                    public boolean onPreDraw() {
+//                        viewHolder.itemView.getViewTreeObserver().removeOnPreDrawListener(this);
+//                        minHeight = viewHolder.itemView.getHeight();
+//                        ViewGroup.LayoutParams layoutParams = viewHolder.itemView.getLayoutParams();
+//                        layoutParams.height = minHeight;
+//                        viewHolder.itemView.setLayoutParams(layoutParams);
+//
+//                        return true;
+//                    }
+//                });
 
                 // click at any row of the list & we will delete at row out of DB
 //                viewHolder.itemView.setOnClickListener(new View.OnClickListener(){
@@ -91,6 +118,61 @@ public class ListFragment extends Fragment{
                         dialog.show();
                     }
                 });
+
+//                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(final View v) {
+//                        if ( viewHolder.itemView.getHeight() == minHeight) {
+//                            // expand
+//                            expandView(height); //'height' is the height of screen which we have measured already.
+//                        } else {
+//                            // collapse
+//                            collapseView();
+//                        }
+//                    }
+//                });
+
+//                public void collapseView() {
+//
+//                    ValueAnimator anim = ValueAnimator.ofInt(cardView.getMeasuredHeightAndState(),
+//                            minHeight);
+//                    anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                        @Override
+//                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                            int val = (Integer) valueAnimator.getAnimatedValue();
+//                            ViewGroup.LayoutParams layoutParams = cardView.getLayoutParams();
+//                            layoutParams.height = val;
+//                            cardView.setLayoutParams(layoutParams);
+//
+//                        }
+//                    });
+//                    anim.start();
+//                }
+//                public void expandView(int height) {
+//
+//                    ValueAnimator anim = ValueAnimator.ofInt(cardView.getMeasuredHeightAndState(),
+//                            height);
+//                    anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                        @Override
+//                        public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                            int val = (Integer) valueAnimator.getAnimatedValue();
+//                            ViewGroup.LayoutParams layoutParams = cardView.getLayoutParams();
+//                            layoutParams.height = val;
+//                            cardView.setLayoutParams(layoutParams);
+//                        }
+//                    });
+//                    anim.start();
+//                }
+//            }
+//
+//            private void toggleCardViewnHeight(int height) {
+//                if ( viewHolder.itemView.getHeight() == minHeight) {
+//                    // expand
+//                    expandView(height); //'height' is the height of screen which we have measured already.
+//                } else {
+//                    // collapse
+//                    collapseView();
+//                }
             }
         };
         boolean temp = mFirebaseAdapter == null;
@@ -116,10 +198,5 @@ public class ListFragment extends Fragment{
         private void Meaning(String m) {
             meaning.setText(m);
         }
-
-        private ImageButton RemoveBtn() {
-            return removeBtn;
-        }
-
     }
 }
