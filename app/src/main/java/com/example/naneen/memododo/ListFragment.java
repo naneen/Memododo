@@ -31,7 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import static android.R.attr.minHeight;
 
-public class ListFragment extends Fragment{
+public class ListFragment extends Fragment {
     View view;
     RecyclerView recyclerView;
     FirebaseDatabase firebaseDatabase;
@@ -68,7 +68,7 @@ public class ListFragment extends Fragment{
         mFirebaseAdapter = new FirebaseRecyclerAdapter<ViewSingleItem, ShowDataViewHolder>(ViewSingleItem.class,
                 R.layout.viewsingleitem, ShowDataViewHolder.class, myRef) {
             @Override
-            protected void populateViewHolder(final ShowDataViewHolder viewHolder, ViewSingleItem model, final int position) {
+            protected void populateViewHolder(final ShowDataViewHolder viewHolder, final ViewSingleItem model, final int position) {
                 viewHolder.Meaning(model.getMeaning());
                 viewHolder.Word(model.getWord());
 
@@ -119,18 +119,38 @@ public class ListFragment extends Fragment{
                     }
                 });
 
-//                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(final View v) {
-//                        if ( viewHolder.itemView.getHeight() == minHeight) {
-//                            // expand
-//                            expandView(height); //'height' is the height of screen which we have measured already.
-//                        } else {
-//                            // collapse
-//                            collapseView();
-//                        }
-//                    }
-//                });
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View v) {
+                        InfoDialog infoDialog = new InfoDialog();
+                        infoDialog.setImage(model.getImage_URL());
+                        infoDialog.setMeaning(model.getMeaning());
+                        infoDialog.setWord(model.getWord());
+                        infoDialog.show(getActivity().getFragmentManager(), "InfoDialog");
+//                        Toast.makeText(getActivity(), "Item is clicked.", Toast.LENGTH_SHORT).show();
+//                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//                        builder.setMessage("Delete?").setCancelable(false)
+//                                .setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        int selectedItem = position;
+//                                        mFirebaseAdapter.getRef(selectedItem).removeValue();
+//                                        mFirebaseAdapter.notifyItemRemoved(selectedItem);
+//                                        recyclerView.invalidate();
+//                                        onStart();
+//                                    }
+//                                })
+//                                .setNegativeButton("No", new DialogInterface.OnClickListener(){
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        dialog.cancel();
+//                                    }
+//                                });
+//                        AlertDialog dialog = builder.create();
+//                        dialog.setTitle("Are you sure?");
+//                        dialog.show();
+                    }
+                });
 
 //                public void collapseView() {
 //

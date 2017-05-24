@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,8 +25,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.firebase.client.Firebase;
-import com.github.florent37.camerafragment.CameraFragment;
-import com.github.florent37.camerafragment.configuration.Configuration;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,7 +36,7 @@ import static android.R.id.list;
 import static android.app.Activity.RESULT_OK;
 
 public class AddFragment extends Fragment{
-    Button addBtn, selectImage;
+    Button addBtn, selectImage, btnCamera;
     EditText wordEdit, meaningEdit;
     ImageView imageView;
     View view;
@@ -48,6 +47,7 @@ public class AddFragment extends Fragment{
     private Uri mImageUri = null;
     private DatabaseReference mDatabaseRef;
     private StorageReference mStorage;
+    private static final int ACTION_CAMERA = 0;
 
     public AddFragment() {
         // Required empty public constructor
@@ -69,6 +69,7 @@ public class AddFragment extends Fragment{
         meaningEdit   = (EditText) view.findViewById(R.id.meaningEdit);
         selectImage = (Button) view.findViewById(R.id.selectImg);
         imageView = (ImageView) view.findViewById(R.id.imageView);
+        btnCamera = (Button) view.findViewById(R.id.camera);
 
 //      initialise firebase
         mDatabaseRef = FirebaseDatabase.getInstance().getReference();
@@ -99,6 +100,16 @@ public class AddFragment extends Fragment{
             }
         });
 
+//        Typeface font = Typeface.createFromAsset( getActivity().getAssets(), "fontawesome-webfont.ttf" );
+//        imageView = (ImageView) view.findViewById(R.id.imageView);
+//        btnCamera.setTypeface(font);
+//        btnCamera.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                openCamera();
+//            }
+//        });
+
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,6 +139,11 @@ public class AddFragment extends Fragment{
         });
         return view;
     }
+
+//    private void openCamera() {
+//        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(intent, ACTION_CAMERA);
+//    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults){
